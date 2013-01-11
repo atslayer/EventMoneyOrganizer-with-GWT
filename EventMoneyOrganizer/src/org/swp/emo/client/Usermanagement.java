@@ -2,12 +2,15 @@ package org.swp.emo.client;
 
 
 
+import java.util.Date;
+
 import org.swp.emo.shared.DB_UsermanagementService;
 import org.swp.emo.shared.DB_UsermanagementServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
@@ -107,13 +110,18 @@ public class Usermanagement {
 		
 
 	    // Set up the callback object.
-	    AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+	    AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
 	      public void onFailure(Throwable caught) {
 	        // TODO: Do something with errors.
 	      }
 
-	      public void onSuccess(Boolean result) {
-	        Window.alert(result.toString());
+	      public void onSuccess(Integer result) {
+	        Window.alert(Integer.toString(result));
+	        
+	        //set cookie for logged in, duration just for current browser session
+	        Date expireDate = new Date();
+	        Cookies.setCookie("EMO", Integer.toString(result));
+	        
 	      }
 	    };
 

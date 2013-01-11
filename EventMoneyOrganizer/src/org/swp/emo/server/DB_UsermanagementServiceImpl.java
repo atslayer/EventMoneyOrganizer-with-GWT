@@ -39,9 +39,9 @@ public class DB_UsermanagementServiceImpl extends DB_Conn  implements DB_Userman
         	
         	try {
 				PreparedStatement qry = connection.prepareStatement(this.QueryAddUser);
-				qry.setString(0, username);
-				qry.setString(1, password);
-				qry.setString(2, email);
+				qry.setString(1, username);
+				qry.setString(2, password);
+				qry.setString(3, email);
 				qry.execute();
 				connection.close();
 			} catch (SQLException e) {
@@ -50,18 +50,19 @@ public class DB_UsermanagementServiceImpl extends DB_Conn  implements DB_Userman
 			}
         }
         
-        public boolean checkLogin(String username, String password) {
-        	
+        public int checkLogin(String username, String password) {
+        	int id = -1;
         	connection = this.getConn();
         	boolean found = false;
         	try {
 				PreparedStatement qry = connection.prepareStatement(this.QueryCheckLogin);
-				qry.setString(0, password);
-				qry.setString(1, username);
+				qry.setString(1, password);
+				qry.setString(2, username);
 
 				ResultSet resultSet = qry.executeQuery();
 				
 				while (resultSet.next()) {
+					id = resultSet.getInt(1);
 					found = true;
 				}
 				
@@ -73,7 +74,7 @@ public class DB_UsermanagementServiceImpl extends DB_Conn  implements DB_Userman
 				e.printStackTrace();
 			}
         	
-        	return found;
+        	return id;
         }
         
         /**
