@@ -1,7 +1,7 @@
 package org.swp.emo.shared;
 
 import com.google.gwt.user.client.rpc.RemoteService;
-//testcomment
+
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("Usermanagement")
 public interface DB_UsermanagementService extends RemoteService{
